@@ -66,11 +66,11 @@ Votre navigateur s'ouvrira automatiquement sur `http://localhost:5173`.
 
 Dans Svelte, un composant réunit la logique (<script>), la structure (HTML) et le style (<style>) dans un seul fichier `.svelte`. Nous allons créer la "Carte" d'affichage.
 
-1. Dans votre éditeur, créez un dossier components à l'intérieur de `src/lib/.`
-2. Créez-y le fichier `src/lib/components/Card.svelte.`
-3. Svelte 5 introduit les **Runes** (des fonctions commençant par $). Nous utilisons $props() pour déclarer les propriétés que ce composant s'attend à recevoir.
+1. Dans votre éditeur, naviguez et trouvé le fichier                                  `Card.svelte`
 
-- Copiez-collez le code suivant dans `Card.svelte` :
+> Remarquez la ligne 3 : on utilise la rune $props() pour indiquer au compilateur quelles données ce composant va recevoir de l'extérieur.
+
+2. Copiez-collez le code suivant dans `Card.svelte` :
     
     ```flow
     <script lang="ts">
@@ -112,6 +112,8 @@ Dans Svelte, un composant réunit la logique (<script>), la structure (HTML) et 
 ## **Partie 3 : L'Application Principale (Le Parent)**
 
 Le point d'entrée de notre site est le fichier `src/routes/+page.svelte`. C'est ici que nous allons stocker nos variables interactives grâce à la Rune $state().
+
+> C'est ici que la magie commence. On déclare nos variables avec $state(). Svelte comprend immédiatement que ces variables contrôlent l'interface.
 
 - Ouvrez src/routes/+page.svelte et **remplacez tout son contenu** par :
     
@@ -186,14 +188,10 @@ Rien ! En HTML/JS classique, le fait de modifier l'input ne met pas à jour la v
 
 **Testez à nouveau :** Tapez sur votre clavier. L'état se met à jour en temps réel et la carte réagit instantanément à chaque frappe !
 
-<aside>
-<img src="https://app.notion.com/icons/hammer_orange.svg" alt="https://app.notion.com/icons/hammer_orange.svg" width="40px" />
-
  **À vous de jouer :** Appliquez le `bind:value` sur le champ "Rôle" et le champ "Couleur" pour rendre toute l'application réactive.
 
-</aside>
 
-## **Partie 5 (Bonus) : Checkbox et Événements**
+## **Partie 5 : Checkbox et Événements**
 
 Pour terminer, manipulons les événements et les types d'inputs différents.
 
@@ -208,7 +206,7 @@ Pour terminer, manipulons les événements et les types d'inputs différents.
 
 *Observez la carte : le badge de recherche (qui utilise le bloc {#if}) apparaît et disparaît instantanément.*
 
-1. **Les événements (Le bouton Reset)** : Ajoutez un bouton pour réinitialiser le formulaire. Svelte utilise onclick (sans majuscule en Svelte 5). Ajoutez ceci à la fin de votre <div class="editor"> :
+1. **Les événements (Le bouton Reset)** : Ajoutez un bouton pour réinitialiser le formulaire. Svelte utilise onclick (sans majuscule en Svelte 5). Ajoutez ceci à la fin de votre `<div class="editor">` (dans +page.svelte) :
 
 ```flow
 <button onclick={() => {
@@ -221,11 +219,17 @@ Pour terminer, manipulons les événements et les types d'inputs différents.
 </button>
 ```
 
-<aside>
-<img src="https://app.notion.com/icons/compose_orange.svg" alt="https://app.notion.com/icons/compose_orange.svg" width="40px" />
+2. **Le rôle de $derived** : En haut de +page.svelte, dans la partie script ajouter:
+   `let nameLength = $derived(userNom.length);`
+Puis juste en bas de l'événement bouton que nous avons récemment ajouter, insérer :
+```flow
+<small style="color: gray;">
+	Longueur du nom : {nameLength} caractères
+</small>
+```
 
-En Svelte 5, réassigner une variable `$state` déclenche automatiquement la mise à jour de l'interface graphique. Pas de `setState` complexe !
+> Pas de fonctions complexes ou de `setState`. On réassigne les variables directement avec = '', et l'interface suit. Le compilateur calcule même la longueur du nom à la volée grâce à $derived !
 
-</aside>
 
-*Bravo! Le TP est terminé :)*
+*Bravo! La demo est terminé :)*
+*laissez une étoile <3 hihi*
