@@ -1,8 +1,11 @@
 # Demo Interactive Svelte — Profil Builder
 
-[version notion](https://app.notion.com/p/TP-Svelte-Profil-Builder-405c6536ad508000aa9ef4d0178a8bc1)
+> [version notion](https://app.notion.com/p/TP-Svelte-Profil-Builder-405c6536ad508000aa9ef4d0178a8bc1)
 
-[présentation canva](https://canva.link/oohtsvwjpg4573n)
+> [présentation canva](https://canva.link/oohtsvwjpg4573n)
+
+preview : 
+<img width="942" height="374" alt="image" src="https://github.com/user-attachments/assets/ef34dfe6-99e7-420f-b7ba-d22f71bc1b2b" />
 
 ---
 
@@ -55,7 +58,7 @@ Placez-vous dans le dossier du projet, installez les dépendances et lancez le s
 
 Votre navigateur s'ouvrira automatiquement sur `http://localhost:5173`. 
 
-Gardez ce terminal ouvert et ce serveur actif !
+> Gardez ce terminal ouvert et ce serveur actif !
 
 </aside>
 
