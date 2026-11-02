@@ -1,8 +1,8 @@
 # Demo Interactive Svelte — Profil Builder
 
-- **Sommaire**
+[version notion](https://app.notion.com/p/TP-Svelte-Profil-Builder-405c6536ad508000aa9ef4d0178a8bc1)
 
-[https://canva.link/oohtsvwjpg4573n](https://canva.link/oohtsvwjpg4573n)
+[présentation canva](https://canva.link/oohtsvwjpg4573n)
 
 ---
 
@@ -38,32 +38,24 @@ src/
 
 ---
 
-## **Partie 1 : Initialisation du projet SvelteKit**
+## **Partie 1 : Récupération du projet SvelteKit**
 
-SvelteKit est le framework officiel pour construire des applications Svelte (l'équivalent de Next.js pour React).
+SvelteKit est le framework officiel pour construire des applications Svelte (l'équivalent de Next.js pour React). Nous avons déjà pré-configuré l'architecture pour vous.
 
-1. Ouvrez votre terminal, placez-vous dans le dossier de votre choix et exécutez :
+Ouvrez votre terminal, placez-vous dans le dossier de votre choix et clonez ce dépôt :
 
-`npx sv create tp-svelte-profil`
 
-2. Répondez aux questions de l'assistant d'installation exactement comme ceci :
+`git clone https://github.com/tasnim-zahouani/svelte-profile-builder.git`
+Placez-vous dans le dossier du projet, installez les dépendances et lancez le serveur local :
 
-    - *Which template would you like?* ➔ **SvelteKit minimal**
-    - *Add type checking with TypeScript?* ➔ **Yes, using TypeScript syntax**
-    - *What would you like to add to your project?* ➔ **Aucun** (appuyez sur Entrée)
-    - *Which package manager do you want to install dependencies with?* ➔ **npm**
-3. Une fois l'installation terminée, placez-vous dans le dossier, installez les dépendances et lancez le serveur :
 
-`cd tp-svelte-profil`
-
+`cd votre-repo`
 `npm install`
-
 `npm run dev -- --open`
 
-<aside>
-<img src="https://app.notion.com/icons/exclamation-mark_orange.svg" alt="https://app.notion.com/icons/exclamation-mark_orange.svg" width="40px" />
+Votre navigateur s'ouvrira automatiquement sur `http://localhost:5173`. 
 
-Votre navigateur s'ouvre sur `http://localhost:5173`. Gardez ce serveur actif !
+Gardez ce terminal ouvert et ce serveur actif !
 
 </aside>
 
