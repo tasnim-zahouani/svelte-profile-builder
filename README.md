@@ -1,4 +1,4 @@
-# TP Svelte — Profil Builder
+# Demo Interactive Svelte — Profil Builder
 
 - **Sommaire**
 
@@ -8,7 +8,7 @@
 
 ## **Objectifs**
 
-L'objectif de ce TP est de vous initier au framework Svelte (version 5). À travers la création d'un "Profil Builder" interactif, vous découvrirez comment Svelte simplifie drastiquement la création d'Interfaces Homme-Machine (IHM) réactives. À la fin de cette session, vous saurez :
+L'objectif de cette demo interactive est de vous initier au framework Svelte (version 5). À travers la création d'un "Profil Builder" interactif, vous découvrirez comment Svelte simplifie drastiquement la création d'Interfaces Homme-Machine (IHM) réactives. À la fin de cette session, vous saurez :
 
 - Initialiser une application SvelteKit.
 - Créer et importer des composants (.svelte).
