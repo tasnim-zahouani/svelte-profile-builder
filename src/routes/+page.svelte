@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Card from '$lib/components/Card.svelte';
+	import Card from '#lib/components/Card.svelte';
 
 	// Svelte 5 : Création de l'état réactif de l'application
 	let userNom = $state('Ada Lovelace');
