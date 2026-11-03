@@ -4,7 +4,7 @@
 
 > [présentation canva](https://canva.link/oohtsvwjpg4573n)
 
-preview : 
+preview :
 <img width="942" height="374" alt="image" src="https://github.com/user-attachments/assets/ef34dfe6-99e7-420f-b7ba-d22f71bc1b2b" />
 
 ---
@@ -47,16 +47,14 @@ SvelteKit est le framework officiel pour construire des applications Svelte (l'�
 
 Ouvrez votre terminal, placez-vous dans le dossier de votre choix et clonez ce dépôt :
 
-
 `git clone https://github.com/tasnim-zahouani/svelte-profile-builder.git`
 Placez-vous dans le dossier du projet, installez les dépendances et lancez le serveur local :
-
 
 `cd votre-repo`
 `npm install`
 `npm run dev -- --open`
 
-Votre navigateur s'ouvrira automatiquement sur `http://localhost:5173`. 
+Votre navigateur s'ouvrira automatiquement sur `http://localhost:5173`.
 
 > Gardez ce terminal ouvert et ce serveur actif !
 
@@ -64,50 +62,52 @@ Votre navigateur s'ouvrira automatiquement sur `http://localhost:5173`.
 
 ## **Partie 2 : Le Composant Visuel (L'Enfant)**
 
-Dans Svelte, un composant réunit la logique (<script>), la structure (HTML) et le style (<style>) dans un seul fichier `.svelte`. Nous allons créer la "Carte" d'affichage.
+Dans Svelte, un composant réunit la logique (`<script>`), la structure (HTML) et le style (`<style>`) dans un seul fichier `.svelte`. Nous allons créer la "Carte" d'affichage.
 
 1. Dans votre éditeur, naviguez et trouvé le fichier                                  `Card.svelte`
 
 > Remarquez la ligne 3 : on utilise la rune $props() pour indiquer au compilateur quelles données ce composant va recevoir de l'extérieur.
 
 2. Copiez-collez le code suivant dans `Card.svelte` :
-    
-    ```flow
-    <script lang="ts">
-    	// Déclaration des propriétés (props) reçues du parent
-    	let { nom, role, couleur, chercheStage } = $props();
-    </script>
-    
-    <div class="card" style="border-top: 5px solid {couleur};">
-    	<div class="avatar" style="background-color: {couleur};">
-    		<!-- Affiche la 1ère lettre du nom, ou '?' si vide -->
-    		{nom ? nom.charAt(0).toUpperCase() : '?'}
-    	</div>
-    	
-    	<h2>{nom || 'Votre Nom'}</h2>
-    	<p class="role">{role || 'Votre Rôle'}</p>
-    	
-    	{#if chercheStage}
-    		<span class="badge">🚀 En recherche d'opportunité</span>
-    	{/if}
-    </div>
-    
-    <style>
-    	.card {
-    		padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    		text-align: center; width: 320px; background: white; font-family: sans-serif;
-    	}
-    	.avatar {
-    		width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 15px;
-    		display: flex; align-items: center; justify-content: center;
-    		color: white; font-size: 2.5rem; font-weight: bold;
-    	}
-    	h2 { margin: 0 0 5px 0; font-size: 1.5rem; }
-    	.role { color: #666; margin: 0 0 20px 0; font-size: 1.1rem; }
-    	.badge { background: #e0f2fe; color: #0284c7; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
-    </style>
-    ```
-    
+
+   ```flow
+   	<script lang="ts">
+	// Déclaration des propriétés (props) reçues du parent
+	let { nom, role, couleur, chercheStage, description} = $props();
+	</script>
+
+	<div class="card" style="border-top: 5px solid {couleur};">
+		<div class="avatar" style="background-color: {couleur};">
+			<!-- Affiche la 1ère lettre du nom, ou '?' si vide -->
+			{nom ? nom.charAt(0).toUpperCase() : '?'}
+		</div>
+	
+		<h2>{nom || 'Votre Nom'}</h2>
+		<p class="role">{role || 'Votre Rôle'}</p>
+
+		<p class="description">{description || 'Votre description'}</p>
+	
+		{#if chercheStage}
+			<span class="badge">🚀 En recherche d'opportunité</span>
+		{/if}
+	</div>
+
+	<style>
+		.card {
+			padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+			text-align: center; width: 320px; background: white; font-family: sans-serif;
+		}
+		.avatar {
+			width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 15px;
+			display: flex; align-items: center; justify-content: center;
+			color: white; font-size: 2.5rem; font-weight: bold;
+		}
+		h2 { margin: 0 0 5px 0; font-size: 1.5rem; }
+		.role { color: #666; margin: 0 0 20px 0; font-size: 1.1rem; }
+		.badge { background: #e0f2fe; color: #0284c7; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
+		.description { padding-left: 5%; text-align: left; text-wrap-style: balance; font-size: 1.1rem;}
+	</style>
+   ```
 
 ## **Partie 3 : L'Application Principale (Le Parent)**
 
@@ -116,64 +116,74 @@ Le point d'entrée de notre site est le fichier `src/routes/+page.svelte`. C'est
 > C'est ici que la magie commence. On déclare nos variables avec $state(). Svelte comprend immédiatement que ces variables contrôlent l'interface.
 
 - Ouvrez src/routes/+page.svelte et **remplacez tout son contenu** par :
-    
-    ```flow
-    <script lang="ts">
-    	import Card from '$lib/components/Card.svelte';
-    
-    	// Svelte 5 : Création de l'état réactif de l'application
-    	let userNom = $state('Ada Lovelace');
-    	let userRole = $state('Développeuse');
-    	let userCouleur = $state('#ff3e00'); // Orange Svelte
-    	let isLooking = $state(false);
-    </script>
-    
-    <main class="container">
-    	<div class="editor">
-    		<h1>Générateur de Profil</h1>
-    		
-    		<label>Nom complet
-    			<input type="text" value={userNom} placeholder="Ex: Ada Lovelace" />
-    		</label>
-    
-    		<label>Rôle
-    			<input type="text" value={userRole} placeholder="Ex: Développeur Web" />
-    		</label>
-    
-    		<label>Couleur du thème
-    			<input type="color" value={userCouleur} />
-    		</label>
-    	</div>
-    
-    	<div class="preview">
-    		<!-- On transmet nos variables d'état au composant enfant -->
-    		<Card 
-    			nom={userNom} 
-    			role={userRole} 
-    			couleur={userCouleur} 
-    			chercheStage={isLooking} 
-    		/>
-    	</div>
-    </main>
-    
-    <style>
-    	.container { display: flex; gap: 40px; padding: 40px; max-width: 900px; margin: auto; font-family: sans-serif; }
-    	.editor { flex: 1; display: flex; flex-direction: column; gap: 15px; background: #f8f9fa; padding: 25px; border-radius: 12px; }
-    	.preview { flex: 1; display: flex; justify-content: center; align-items: center; }
-    	label { display: flex; flex-direction: column; gap: 5px; font-weight: bold; font-size: 0.9rem; }
-    	input[type="text"] { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
-    	input[type="color"] { width: 100%; height: 40px; border: none; cursor: pointer; }
-    </style>
-    ```
-    
+  ```flow
+  <script lang="ts">
+  	import Card from '#lib/components/Card.svelte';
+
+  	// Svelte 5 : Création de l'état réactif de l'application
+  	let userNom = $state('Ada Lovelace');
+  	let userRole = $state('Développeuse');
+  	let userCouleur = $state('#ff3e00'); // Orange Svelte
+  	let isLooking = $state(false);
+	let description = $state('Mathématicienne & pionnière de l’informatique. J’ai écrit le premier algorithme destiné à une machine. J’allie rigueur scientifique et imagination pour concevoir ce que le calcul peut accomplir. Disponible pour de nouveaux défis.');
+	let descLength = $derived(description.length-1)
+	let toLongDesc = $derived(descLength>240);
+  </script>
+
+  <main class="container">
+  	<div class="editor">
+  		<h1>Générateur de Profil</h1>
+
+  		<label>Nom complet
+  			<input type="text" value={userNom} placeholder="Ex: Ada Lovelace" />
+  		</label>
+
+  		<label>Rôle
+  			<input type="text" value={userRole} placeholder="Ex: Développeur Web" />
+  		</label>
+
+  		<label>Couleur du thème
+  			<input type="color" value={userCouleur} />
+  		</label>
+
+		<label>Description
+			{#if toLongDesc}
+				<span class="error"> La description est trop longue ! Raconte pas ta vie !</span>
+			{/if}
+			<textarea rows="4" cols="50" bind:value={description} placeholder="Ex: Mathématicienne & pionnière de l’informatique..."/>
+		</label>
+  	</div>
+
+  	<div class="preview">
+  		<!-- On transmet nos variables d'état au composant enfant -->
+  		<Card 
+  			nom={userNom}
+  			role={userRole}
+  			couleur={userCouleur}
+  			chercheStage={isLooking}
+			description={description.substring(0, 240)}
+  		/>
+  	</div>
+  </main>
+
+  <style>
+  	.container { display: flex; gap: 40px; padding: 40px; max-width: 900px; margin: auto; font-family: sans-serif; }
+  	.editor { flex: 1; display: flex; flex-direction: column; gap: 15px; background: #f8f9fa; padding: 25px; border-radius: 12px; }
+  	.preview { flex: 1; display: flex; justify-content: center; align-items: center; }
+	.error { color: #c70902; padding-left: 4px; font-size: 0.85rem; font-weight: bold; }
+  	label { display: flex; flex-direction: column; gap: 5px; font-weight: bold; font-size: 0.9rem; }
+  	input[type="text"] { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+  	input[type="color"] { width: 100%; height: 40px; border: none; cursor: pointer; }
+  </style>
+  ```
 
 ## **Partie 4 : Observation et "Magie" Svelte**
 
 Regardez votre navigateur. L'interface s'affiche correctement et le composant enfant a bien reçu les données (Ada Lovelace, couleur orange, etc.).
 
-**L'expérience :** Essayez de modifier le nom dans le champ texte. 
+**L'expérience :** Essayez de modifier le nom dans le champ texte.
 
-**Que se passe-t-il ?** 
+**Que se passe-t-il ?**
 Rien ! En HTML/JS classique, le fait de modifier l'input ne met pas à jour la variable `userNom`. Il faudrait écrire un écouteur d'événement (`onChange`) pour capter la saisie et forcer la mise à jour.
 
 **La solution Svelte : le Two-Way Binding** Svelte élimine cette complexité. Dans +page.svelte, modifiez la ligne de l'input Nom en ajoutant simplement **bind:** devant value :
@@ -189,7 +199,6 @@ Rien ! En HTML/JS classique, le fait de modifier l'input ne met pas à jour la v
 **Testez à nouveau :** Tapez sur votre clavier. L'état se met à jour en temps réel et la carte réagit instantanément à chaque frappe !
 
  **À vous de jouer :** Appliquez le `bind:value` sur le champ "Rôle" et le champ "Couleur" pour rendre toute l'application réactive.
-
 
 ## **Partie 5 : Checkbox et Événements**
 
@@ -214,22 +223,34 @@ Pour terminer, manipulons les événements et les types d'inputs différents.
 	userRole = '';
 	userCouleur = '#000000';
 	isLooking = false;
+    description = ''
 }} style="margin-top: 15px; padding: 10px; cursor: pointer;">
 	Tout effacer
 </button>
 ```
 
 2. **Le rôle de $derived** : En haut de +page.svelte, dans la partie script ajouter:
-   `let nameLength = $derived(userNom.length);`
-Puis juste en bas de l'événement bouton que nous avons récemment ajouter, insérer :
+   `let descLength = $derived(description.length-1);`
+   Puis juste en bas de l'événement bouton que nous avons récemment ajouter, insérer :
+
 ```flow
 <small style="color: gray;">
-	Longueur du nom : {nameLength} caractères
+	Longueur du nom : {descLength} caractères
 </small>
 ```
 
-> Pas de fonctions complexes ou de `setState`. On réassigne les variables directement avec = '', et l'interface suit. Le compilateur calcule même la longueur du nom à la volée grâce à $derived !
+   Ensuite, il serai bien d'informer l'utilisateur que sa description est trop longue.
+   Donc juste en bas de `let descLength` ajoutez ce code :
+   `let toLongDesc = $derived(descLength>240);`
+   Et inserez le code suivant dans la balise du `<label>Description ...` :
 
+```flow
+	{#if toLongDesc}
+		<span class="error"> La description est trop longue !</span>
+	{/if}
+```
+
+> Pas de fonctions complexes ou de `setState`. On réassigne les variables directement avec = '', et l'interface suit. Le compilateur calcule même la longueur du nom à la volée grâce à $derived !
 
 *Bravo! La demo est terminé :)*
 *laissez une étoile <3 hihi*
