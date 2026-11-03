@@ -1,6 +1,6 @@
 <script lang="ts">
 	// Déclaration des propriétés (props) reçues du parent
-	let { nom, role, couleur, chercheStage } = $props();
+	let { nom, role, couleur, chercheStage, description} = $props();
 </script>
 
 <div class="card" style="border-top: 5px solid {couleur};">
@@ -11,6 +11,8 @@
 	
 	<h2>{nom || 'Votre Nom'}</h2>
 	<p class="role">{role || 'Votre Rôle'}</p>
+
+	<p class="description">{description || 'Votre description'}</p>
 	
 	{#if chercheStage}
 		<span class="badge">🚀 En recherche d'opportunité</span>
@@ -30,4 +32,5 @@
 	h2 { margin: 0 0 5px 0; font-size: 1.5rem; }
 	.role { color: #666; margin: 0 0 20px 0; font-size: 1.1rem; }
 	.badge { background: #e0f2fe; color: #0284c7; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
+	.description { padding-left: 5%; text-align: left; text-wrap-style: balance; font-size: 1.1rem;}
 </style>
